@@ -1,6 +1,8 @@
 services:
   php:
-    image: php:8.0-apache
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./src:/var/www/html
     ports:
@@ -15,6 +17,8 @@ services:
       MYSQL_PASSWORD: root
     ports:
       - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -23,3 +27,6 @@ services:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - "8081:80"
+
+volumes:
+  mysql_data:
